@@ -28,4 +28,22 @@ class CommandLineViewTest {
 		System.setIn(inputStream);
 		assertThat(CommandLineView.inputMoney()).isPresent();
 	}
+
+	@DisplayName("잘못된 당첨번호 문자 일 때 Optional.empty() 반환한다.")
+	@ParameterizedTest
+	@ValueSource(strings = {"1,2,3,4,5", "1;2;3,4,5,6", "1,1,2,3,4,5", "1,2,3,4,5,6,7", "11aaa", "ac1111"})
+	void inputWinningNumberFailed(String moneyString) {
+		InputStream inputStream = new ByteArrayInputStream(moneyString.getBytes());
+		System.setIn(inputStream);
+		assertThat(CommandLineView.inputWinningNumbers()).isEmpty();
+	}
+
+	@DisplayName("정확한 당첨번호 문자 일 때 객체를 Optional 에 담아 반환한다.")
+	@ParameterizedTest
+	@ValueSource(strings = {"1,2,3,4,5,6", "1,21,31,32,44,45", "4,2,6,9,7,8"})
+	void inputWinningNumberSuccess(String moneyString) {
+		InputStream inputStream = new ByteArrayInputStream(moneyString.getBytes());
+		System.setIn(inputStream);
+		assertThat(CommandLineView.inputWinningNumbers()).isPresent();
+	}
 }
