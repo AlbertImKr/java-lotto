@@ -1,5 +1,7 @@
 package lotto;
 
+import java.util.Objects;
+
 public final class LottoNumber {
 
 	public static final String RANGE_ERROR = "로또 번호 범위를 초과 했습니다.";
@@ -18,5 +20,20 @@ public final class LottoNumber {
 
 	public int getLottoNumber() {
 		return lottoNumber;
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o)
+			return true;
+		if (!(o instanceof LottoNumber))
+			return false;
+		LottoNumber that = (LottoNumber)o;
+		return getLottoNumber() == that.getLottoNumber();
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(getLottoNumber());
 	}
 }
