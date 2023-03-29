@@ -6,13 +6,13 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-public class TicketMachine {
+public class LottoMachine {
 
 	private final static List<LottoNumber> allLottoNumbers = IntStream.range(1, 46)
 		.mapToObj(LottoNumber::new)
 		.collect(Collectors.toList());
 
-	private TicketMachine() {
+	private LottoMachine() {
 
 	}
 
