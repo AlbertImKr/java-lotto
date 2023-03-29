@@ -22,4 +22,20 @@ class LottoNumberTest {
 	void generateSuccess(int lottoNumber) {
 		assertThat(new LottoNumber(lottoNumber)).hasFieldOrPropertyWithValue("lottoNumber", lottoNumber);
 	}
+
+	@DisplayName("로또 넘버 문자를 잘못입력하면 오류가 발생한다.")
+	@ParameterizedTest
+	@ValueSource(strings = {"0","46","string","8a"})
+	void generateByStringFailed(String lottoNumberString) {
+		assertThatThrownBy(() -> LottoNumber.generateByString(lottoNumberString)).isInstanceOf(
+			IllegalArgumentException.class);
+	}
+
+	@DisplayName("로또 넘버 문자를 정확히 입력하면 정상을 생성한다.")
+	@ParameterizedTest
+	@ValueSource(strings = {"1","45","20"})
+	void generateByStringSuccess(String lottoNumberString) {
+		assertThat(LottoNumber.generateByString(lottoNumberString)).hasFieldOrPropertyWithValue("lottoNumber",
+			Integer.parseInt(lottoNumberString));
+	}
 }
