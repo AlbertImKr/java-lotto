@@ -32,4 +32,16 @@ public class CommandLineView {
 			return Optional.empty();
 		}
 	}
+
+	public static Optional<LottoNumber> inputBonusNumber() {
+		try {
+			System.out.println("보너스 번호를 입력하세요.");
+			Scanner scanner = new Scanner(System.in);
+			String bonusNumberString = scanner.nextLine();
+			return Optional.of(LottoNumber.generateByString(bonusNumberString));
+		} catch (IllegalArgumentException e) {
+			System.err.println("잘못 입력했습니다.");
+			return Optional.empty();
+		}
+	}
 }
