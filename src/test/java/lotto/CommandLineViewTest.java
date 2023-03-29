@@ -46,4 +46,22 @@ class CommandLineViewTest {
 		System.setIn(inputStream);
 		assertThat(CommandLineView.inputWinningNumbers()).isPresent();
 	}
+
+	@DisplayName("잘못된 보너스 번호 일 때 Optional.empty() 반환한다.")
+	@ParameterizedTest
+	@ValueSource(strings = {"0", "46", "1,1,2,3,4,5", "1,2,3,4,5,6,7", "11aaa", "ac1111"})
+	void inputBonusNumberFailed(String bonusNumberString) {
+		InputStream inputStream = new ByteArrayInputStream(bonusNumberString.getBytes());
+		System.setIn(inputStream);
+		assertThat(CommandLineView.inputBonusNumber()).isEmpty();
+	}
+
+	@DisplayName("정확한 보너스 번호 일 때 객체를 Optional 에 담아 반환한다.")
+	@ParameterizedTest
+	@ValueSource(strings = {"1", "45", "10","11"})
+	void inputBonusNumberSuccess(String bonusNumberString) {
+		InputStream inputStream = new ByteArrayInputStream(bonusNumberString.getBytes());
+		System.setIn(inputStream);
+		assertThat(CommandLineView.inputBonusNumber()).isPresent();
+	}
 }
