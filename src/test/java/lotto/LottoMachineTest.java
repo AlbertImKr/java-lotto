@@ -3,6 +3,7 @@ package lotto;
 import static org.assertj.core.api.Assertions.*;
 
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
@@ -30,5 +31,12 @@ class LottoMachineTest {
 	void generateByStringSuccess(String winningNumbersString) {
 		Lotto result = LottoMachine.generateByString(winningNumbersString);
 		assertThat(result).isNotNull();
+	}
+
+	@DisplayName("랜덤으로 lotto 생성")
+	@Test
+	void generateRandomTicket() {
+		Lotto lotto = LottoMachine.generateRandomTicket();
+		assertThat(lotto).isNotNull();
 	}
 }
