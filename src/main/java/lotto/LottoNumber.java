@@ -12,6 +12,13 @@ public final class LottoNumber {
 		this.lottoNumber = lottoNumber;
 	}
 
+	public static LottoNumber generateByString(String bonusNumberString) {
+		if (!bonusNumberString.matches("^[1-9][0-9]?$")) {
+			throw new IllegalArgumentException("생성하려고 하는 로또번호가 정혹하지 않습니다.");
+		}
+		return new LottoNumber(Integer.parseInt(bonusNumberString));
+	}
+
 	private void validate(int lottoNumber) {
 		if (lottoNumber < 1 || lottoNumber > 45) {
 			throw new IllegalArgumentException(RANGE_ERROR);
