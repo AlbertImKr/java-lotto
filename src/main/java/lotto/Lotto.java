@@ -2,7 +2,7 @@ package lotto;
 
 import java.util.Set;
 
-public abstract class Lotto {
+public class Lotto {
 
 	public static final String SIZE_ERROR = "로또 번호는 서로 다르고 6개 이여야 합니다.";
 	private final Set<LottoNumber> numbers;

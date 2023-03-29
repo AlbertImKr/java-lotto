@@ -20,19 +20,19 @@ public class LottoMachine {
 
 	}
 
-	public static Ticket generateRandomTicket() {
+	public static Lotto generateRandomTicket() {
 		Collections.shuffle(allLottoNumbers);
 		List<LottoNumber> lottoNumbers = allLottoNumbers.subList(1, 6);
 		lottoNumbers.sort(Comparator.comparingInt(LottoNumber::getLottoNumber));
-		return new Ticket(lottoNumbers.stream().collect(Collectors.toSet()));
+		return new Lotto(lottoNumbers.stream().collect(Collectors.toSet()));
 	}
 
-	public static WinningNumbers generateByString(String winningNumbersString) {
+	public static Lotto generateByString(String winningNumbersString) {
 		validateType(winningNumbersString);
 		Set<LottoNumber> winningNumbers = Arrays.stream(winningNumbersString.split(","))
 			.map(s -> new LottoNumber(Integer.parseInt(s)))
 			.collect(Collectors.toSet());
-		return new WinningNumbers(winningNumbers);
+		return new Lotto(winningNumbers);
 	}
 
 	private static void validateType(String winningNumbersString) {
