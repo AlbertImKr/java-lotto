@@ -21,12 +21,12 @@ public class CommandLineView {
 		}
 	}
 
-	public static Optional<WinningNumbers> inputWinningNumbers() {
+	public static Optional<Lotto> inputWinningNumbers() {
 		try {
 			System.out.println("당첨 번호를 입력 하세요. 번호는 쉼표(,)를 기준으로 구분해주세요.");
 			Scanner scanner = new Scanner(System.in);
 			String winningNumbers = scanner.nextLine();
-			return Optional.of(WinningNumbers.generateByString(winningNumbers));
+			return Optional.of(LottoMachine.generateByString(winningNumbers));
 		} catch (IllegalArgumentException e) {
 			System.err.println("잘못 입력했습니다. 번호는 쉼표(,)를 기준으로 구분해주세요.");
 			return Optional.empty();
