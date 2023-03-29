@@ -22,7 +22,7 @@ public class LottoMachine {
 
 	public static Lotto generateRandomTicket() {
 		Collections.shuffle(allLottoNumbers);
-		List<LottoNumber> lottoNumbers = allLottoNumbers.subList(1, 6);
+		List<LottoNumber> lottoNumbers = allLottoNumbers.subList(1, 7);
 		lottoNumbers.sort(Comparator.comparingInt(LottoNumber::getLottoNumber));
 		return new Lotto(lottoNumbers.stream().collect(Collectors.toSet()));
 	}
