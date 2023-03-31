@@ -1,5 +1,9 @@
 package lotto;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 import java.util.Set;
 
 public class Lotto {
@@ -16,6 +20,13 @@ public class Lotto {
 		if (lottoNumber.size() != 6) {
 			throw new IllegalArgumentException(SIZE_ERROR);
 		}
+	}
+
+	public String getLottoNumber() {
+		List<LottoNumber> lottoNumbers = new ArrayList<>(numbers);
+		Collections.sort(lottoNumbers,
+			Comparator.comparingInt(LottoNumber::getLottoNumber));
+		return lottoNumbers.toString();
 	}
 
 }
