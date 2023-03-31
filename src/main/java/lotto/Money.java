@@ -19,4 +19,9 @@ public class Money {
 	public long getTicketsQuantity() {
 		return money / 1000;
 	}
+
+	public String getWiningRate(Long winnings) {
+		float rate = Float.valueOf(winnings - money) / money;
+		return String.format("%.2f", rate * 100);
+	}
 }
