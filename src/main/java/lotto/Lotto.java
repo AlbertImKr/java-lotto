@@ -8,6 +8,7 @@ import java.util.Set;
 public class Lotto {
 
 	public static final String SIZE_ERROR = "로또 번호는 서로 다르고 6개 이여야 합니다.";
+	public static final int LOTTO_NUMBER_SIZE = 6;
 	private final Set<LottoNumber> numbers;
 
 	public Lotto(Set<LottoNumber> numbers) {
@@ -16,7 +17,7 @@ public class Lotto {
 	}
 
 	private void validate(Set<LottoNumber> lottoNumber) {
-		if (lottoNumber.size() != 6) {
+		if (lottoNumber.size() != LOTTO_NUMBER_SIZE) {
 			throw new IllegalArgumentException(SIZE_ERROR);
 		}
 	}

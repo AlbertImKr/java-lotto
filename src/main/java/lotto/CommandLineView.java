@@ -16,6 +16,10 @@ public class CommandLineView {
 	public static final String INPUT_WINNING_NUMBERS_ERROR = "잘못 입력했습니다. 번호는 쉼표(,)를 기준으로 구분해주세요.";
 	public static final String INPUT_BONUS_NUMBER_DESCRIPTION = "보너스 번호를 입력하세요.";
 	public static final String INPUT_BONUS_NUMBER_ERROR = "잘못 입력했습니다.";
+	public static final String TICKETS_DESCRIPTION = "%d개를 구매했습니다.\n";
+	public static final String RESULT_DESCRIPTION = "%s - %d개\n";
+	public static final String RATE_DESCRIPTION = "총 수익률은 %s%%입니다.";
+	public static final long DEFAULT_VALUE = 0L;
 
 	private CommandLineView() {
 
@@ -58,7 +62,7 @@ public class CommandLineView {
 	}
 
 	public static void printTickets(List<Lotto> tickets) {
-		System.out.println(tickets.size() + "개를 구매했습니다.");
+		System.out.printf(TICKETS_DESCRIPTION,tickets.size());
 		for (Lotto lotto : tickets) {
 			System.out.println(lotto.getLottoNumber());
 		}
@@ -71,12 +75,12 @@ public class CommandLineView {
 			.collect(Collectors.toList());
 
 		for (Prize prize : collect) {
-			Long quantity = result.getOrDefault(prize, 0L);
-			System.out.println(prize.getDescription() + " - " + quantity + "개");
+			Long quantity = result.getOrDefault(prize, DEFAULT_VALUE);
+			System.out.printf(RESULT_DESCRIPTION,prize.getDescription(),quantity);
 		}
 	}
 
 	public static void printWiningRate(String rate) {
-		System.out.println("총 수익률은 " + rate + "%입니다.");
+		System.out.printf(RATE_DESCRIPTION,rate);
 	}
 }

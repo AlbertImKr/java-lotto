@@ -8,6 +8,9 @@ import java.util.stream.IntStream;
 
 public class LottoGame {
 
+	public static final int START_INCLUSIVE = 0;
+	public static final int ONE = 1;
+
 	void start() {
 		Money money = getMoney();
 
@@ -36,7 +39,7 @@ public class LottoGame {
 
 	private static List<Lotto> buyTickets(Money money) {
 		long ticketsQuantity = money.getTicketsQuantity();
-		return IntStream.iterate(0, i -> i < ticketsQuantity, i -> i + 1)
+		return IntStream.range(START_INCLUSIVE, (int)(ticketsQuantity + ONE))
 			.mapToObj(i -> LottoMachine.generateRandomTicket())
 			.collect(Collectors.toList());
 	}
