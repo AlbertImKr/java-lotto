@@ -16,7 +16,8 @@ public class LottoGame {
 			optionalMoney = CommandLineView.inputMoney();
 		}
 
-		long ticketsQuantity = optionalMoney.get().getTicketsQuantity();
+		Money money = optionalMoney.get();
+		long ticketsQuantity = money.getTicketsQuantity();
 
 		List<Lotto> tickets = IntStream.iterate(0, i -> i < ticketsQuantity, i -> i + 1)
 			.mapToObj(i -> LottoMachine.generateRandomTicket())
@@ -37,8 +38,9 @@ public class LottoGame {
 			optionalLottoNumber = CommandLineView.inputBonusNumber();
 		}
 
-		Map<Prize, Long> result = LottoChecker.getResult(optionalWinningNumbers.get(), optionalLottoNumber.get(),
-			tickets);
+		Lotto winningLotto = optionalWinningNumbers.get();
+		LottoNumber lottoNumber = optionalLottoNumber.get();
+		Map<Prize, Long> result = LottoChecker.getResult(winningLotto, lottoNumber, tickets);
 
 		List<Prize> collect = Arrays.stream(Prize.values())
 			.filter(prize -> prize != Prize.NO)
@@ -49,5 +51,8 @@ public class LottoGame {
 			Long quantity = result.getOrDefault(prize, 0L);
 			System.out.println(prize.getDescription() + " - " + quantity + "개");
 		}
+
+		String rate = WinningCalculator.getWinningRate(result, money);
+		System.out.println("총 수익률은 " + rate + "%입니다.");
 	}
 }
