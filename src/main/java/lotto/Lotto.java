@@ -31,4 +31,12 @@ public class Lotto {
 		return numbers.contains(lottoNumber);
 	}
 
+	public int getMatchCount(Lotto ticket) {
+		return ticket.getMatchCount(numbers);
+	}
+
+	private int getMatchCount(Set<LottoNumber> winningNumbers) {
+		return (int)numbers.stream().filter(winningNumbers::contains).count();
+	}
+
 }
