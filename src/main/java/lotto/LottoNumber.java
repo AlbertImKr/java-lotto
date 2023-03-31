@@ -1,6 +1,7 @@
 package lotto;
 
 import java.util.Objects;
+import java.util.StringJoiner;
 
 public final class LottoNumber {
 
@@ -43,5 +44,10 @@ public final class LottoNumber {
 	@Override
 	public int hashCode() {
 		return Objects.hash(getLottoNumber());
+	}
+
+	@Override
+	public String toString() {
+		return String.valueOf(lottoNumber);
 	}
 }
