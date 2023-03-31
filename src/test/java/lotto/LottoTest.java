@@ -7,7 +7,9 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.ValueSource;
 
 class LottoTest {
@@ -16,9 +18,7 @@ class LottoTest {
 	@ParameterizedTest
 	@ValueSource(ints = {5, 7})
 	void generateFailed(int size) {
-		Set<LottoNumber> lottoNumbers = IntStream.range(1, size + 1)
-			.mapToObj(LottoNumber::new)
-			.collect(Collectors.toSet());
+		Set<LottoNumber> lottoNumbers = getLottoNumbersSet(1, size + 1);
 		assertThatThrownBy(() -> new Lotto(lottoNumbers)).isInstanceOf(IllegalArgumentException.class)
 			.hasMessage(Lotto.SIZE_ERROR);
 	}
@@ -27,9 +27,51 @@ class LottoTest {
 	@ParameterizedTest
 	@ValueSource(ints = {6})
 	void generateSuccess(int size) {
-		Set<LottoNumber> lottoNumbers = IntStream.range(1, size + 1)
+		Set<LottoNumber> lottoNumbers = getLottoNumbersSet(1, size + 1);
+		assertThat(new Lotto(lottoNumbers)).isNotNull();
+	}
+
+	@DisplayName("정렬된 로또 번호 return 한다")
+	@ParameterizedTest
+	@CsvSource({"1,7", "5,11", "40,46"})
+	void getLottoNumber(int startInclusive, int endExclusive) {
+		Set<LottoNumber> lottoNumbers = getLottoNumbersSet(startInclusive, endExclusive);
+		Lotto lotto = new Lotto(lottoNumbers);
+		assertThat(lotto.getLottoNumber()).isEqualTo(
+			IntStream.range(startInclusive, endExclusive)
+				.boxed()
+				.collect(Collectors.toList()).toString()
+		);
+	}
+
+	@DisplayName("로또 번호 포함 여부를 확인한다")
+	@Test
+	void contains() {
+		Set<LottoNumber> lottoNumbers = getLottoNumbersSet(1, 7);
+		Lotto lotto = new Lotto(lottoNumbers);
+		assertThat(lotto.contains(new LottoNumber(1))).isTrue();
+		assertThat(lotto.contains(new LottoNumber(7))).isFalse();
+	}
+
+	@DisplayName("두 로또 번호의 일치 개수를 return")
+	@Test
+	void getMatchCount() {
+		Set<LottoNumber> lottoNumbers1To6 = getLottoNumbersSet(1, 7);
+		Set<LottoNumber> lottoNumbers2To7 = getLottoNumbersSet(2, 8);
+		Set<LottoNumber> lottoNumbers3To8 = getLottoNumbersSet(3, 9);
+
+		Lotto lotto1To6 = new Lotto(lottoNumbers1To6);
+		Lotto lotto2To7 = new Lotto(lottoNumbers2To7);
+		Lotto lotto3To8 = new Lotto(lottoNumbers3To8);
+
+		assertThat(lotto1To6.getMatchCount(lotto2To7)).isEqualTo(5);
+		assertThat(lotto1To6.getMatchCount(lotto3To8)).isEqualTo(4);
+		assertThat(lotto2To7.getMatchCount(lotto3To8)).isEqualTo(5);
+	}
+
+	private static Set<LottoNumber> getLottoNumbersSet(int startInclusive, int endExclusive) {
+		return IntStream.range(startInclusive, endExclusive)
 			.mapToObj(LottoNumber::new)
 			.collect(Collectors.toSet());
-		assertThat(new Lotto(lottoNumbers)).isNotNull();
 	}
 }
