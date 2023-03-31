@@ -1,7 +1,6 @@
 package lotto;
 
 import java.util.Objects;
-import java.util.StringJoiner;
 
 public final class LottoNumber {
 
