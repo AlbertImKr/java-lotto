@@ -3,6 +3,7 @@ package lotto;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -32,7 +33,7 @@ public class LottoMachine {
 		Collections.shuffle(allLottoNumbers);
 		List<LottoNumber> lottoNumbers = allLottoNumbers.subList(START_INDEX, TO_INDEX);
 		lottoNumbers.sort(Comparator.comparingInt(LottoNumber::getLottoNumber));
-		return new Lotto(lottoNumbers.stream().collect(Collectors.toSet()));
+		return new Lotto(new HashSet<>(lottoNumbers));
 	}
 
 	public static Lotto generateByString(String winningNumbersString) {

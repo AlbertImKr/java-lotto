@@ -25,7 +25,7 @@ public class Money {
 	}
 
 	public String getWiningRate(Long winnings) {
-		float rate = Float.valueOf(winnings - money) / money;
+		float rate = (float)(winnings - money) / money;
 		return String.format(PERCENT_REGEX, rate * HUNDRED);
 	}
 }

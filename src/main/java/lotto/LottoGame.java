@@ -36,11 +36,9 @@ public class LottoGame {
 
 	private static List<Lotto> buyTickets(Money money) {
 		long ticketsQuantity = money.getTicketsQuantity();
-
-		List<Lotto> tickets = IntStream.iterate(0, i -> i < ticketsQuantity, i -> i + 1)
+		return IntStream.iterate(0, i -> i < ticketsQuantity, i -> i + 1)
 			.mapToObj(i -> LottoMachine.generateRandomTicket())
 			.collect(Collectors.toList());
-		return tickets;
 	}
 
 	private static void printTickets(List<Lotto> tickets) {
