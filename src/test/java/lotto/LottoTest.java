@@ -70,9 +70,8 @@ class LottoTest {
 	}
 
 	private static Set<LottoNumber> getLottNumbers(int size) {
-		Set<LottoNumber> lottoNumbers = IntStream.range(1, size + 1)
+		return IntStream.range(1, size + 1)
 			.mapToObj(LottoNumber::new)
 			.collect(Collectors.toSet());
-		return lottoNumbers;
 	}
 }
