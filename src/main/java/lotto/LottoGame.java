@@ -1,7 +1,5 @@
 package lotto;
 
-import java.util.Arrays;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -46,10 +44,7 @@ public class LottoGame {
 	}
 
 	private static void printTickets(List<Lotto> tickets) {
-		System.out.println(tickets.size() + "개를 구매했습니다.");
-		for (Lotto lotto : tickets) {
-			System.out.println(lotto.getLottoNumber());
-		}
+		CommandLineView.printTickets(tickets);
 	}
 
 	private static Lotto getWinningNumbers() {
@@ -73,19 +68,11 @@ public class LottoGame {
 	}
 
 	private static void printResult(Map<Prize, Long> result) {
-		List<Prize> collect = Arrays.stream(Prize.values())
-			.filter(prize -> prize != Prize.NO)
-			.sorted(Comparator.reverseOrder())
-			.collect(Collectors.toList());
-
-		for (Prize prize : collect) {
-			Long quantity = result.getOrDefault(prize, 0L);
-			System.out.println(prize.getDescription() + " - " + quantity + "개");
-		}
+		CommandLineView.printResult(result);
 	}
 
 	private static void printWinningRate(Money money, Map<Prize, Long> result) {
 		String rate = WinningCalculator.getWinningRate(result, money);
-		System.out.println("총 수익률은 " + rate + "%입니다.");
+		CommandLineView.printWiningRate(rate);
 	}
 }
