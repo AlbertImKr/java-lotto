@@ -27,4 +27,8 @@ public class Lotto {
 		return lottoNumbers.toString();
 	}
 
+	public boolean contains(LottoNumber lottoNumber) {
+		return numbers.contains(lottoNumber);
+	}
+
 }
